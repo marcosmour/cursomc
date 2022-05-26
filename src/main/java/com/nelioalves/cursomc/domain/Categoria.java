@@ -1,3 +1,5 @@
+// ESSA E A CAMADA DE DOMINIO
+
 package com.nelioalves.cursomc.domain;
 
 import java.io.Serializable;
