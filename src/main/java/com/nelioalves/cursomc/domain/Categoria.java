@@ -3,10 +3,17 @@ package com.nelioalves.cursomc.domain;
 import java.io.Serializable;
 import java.util.Objects;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity // essa anaotação a pra informar que essa classe e uma entidade do JPA
 public class Categoria implements Serializable {// Serialazeble serve para os arquivos serem transformado os bits e trafegarem em redes
 	private static final long serialVersionUID = 1L;
 
-	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY) // para gerar automaricamento os id´s
 	private Integer id;
 	private String nome;
 	
