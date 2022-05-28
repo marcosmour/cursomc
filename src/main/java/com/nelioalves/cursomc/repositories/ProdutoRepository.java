@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
 import com.nelioalves.cursomc.domain.Produto;
 
 @Repository
-public interface ProdutoRepository extends JpaRepository<Produto, Integer>{ // esse e o comando para acesso, alterar, deletar etc, do objeto Categoria
+public interface ProdutoRepository extends JpaRepository<Produto, Integer>{ // // COMANDO PARA ACESSO, ALTERAR, DELETAR ETC, DO OBJETO PRODUTO
 
 }

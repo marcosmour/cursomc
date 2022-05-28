@@ -7,9 +7,9 @@ package com.nelioalves.cursomc.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.nelioalves.cursomc.domain.Categoria;
+import com.nelioalves.cursomc.domain.Estado;
 
 @Repository
-public interface CategoriaRepository extends JpaRepository<Categoria, Integer>{ // COMANDO PARA ACESSO, ALTERAR, DELETAR ETC, DO OBJETO CATEGORIA
+public interface EstadoRepository extends JpaRepository<Estado, Integer>{ // COMANDO PARA ACESSO, ALTERAR, DELETAR ETC, DO OBJETO ESTADO
 
 }
