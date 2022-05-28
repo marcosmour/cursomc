@@ -13,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity // ESSA ANOTAÇÃO E PARA INFORMAR QUE ESSA CLASSSE E UMA ENTIDADE DO JPA
 public class Categoria implements Serializable {// SERIALIZABLE SERVE PARA OS AEQUIVOS SEREM TRANSFORMADO EM BITS PARA TRAFEGAREM EM REDE
 	private static final long serialVersionUID = 1L;
@@ -22,6 +24,7 @@ public class Categoria implements Serializable {// SERIALIZABLE SERVE PARA OS AE
 	private Integer id;
 	private String nome;
 	
+	@JsonManagedReference // ESSA ANOTAÇÃO E COLOCADA DO LADO QUE QUEREMOS QUE VENHA OS OBJETOS ASSOCIADOS
 	@ManyToMany(mappedBy = "categorias")
 	private List<Produto> produtos = new ArrayList<>();
 	
