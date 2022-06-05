@@ -2,8 +2,10 @@ package com.nelioalves.cursomc.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 //import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -31,6 +34,9 @@ public class Produto implements Serializable{
 	@JoinTable(name = "PRODUTO_CATEGORIA", joinColumns = @JoinColumn(name = "produto_id"), inverseJoinColumns = @JoinColumn(name = "categoria_id")) // PARA MAPEAR E CRIAR AS TABELAS NO BANCO DE DADOS
 	private List<Categoria> categorias = new ArrayList<>();
 	
+	@OneToMany(mappedBy = "id.produto") // PEGANDO O ID E FAZENDO REFERENCIA PARA O PRODUTO. AULA 29 02:00.
+	private Set<ItemPedido> itens = new HashSet<>(); // CRIADO PARA A CLASSE PRODUTO CONHEÇER A CLASSE ITEMPEDIDO
+	
 	public Produto() {
 		
 	}
@@ -40,6 +46,14 @@ public class Produto implements Serializable{
 		this.id = id;
 		this.nome = nome;
 		this.preco = preco;
+	}
+	
+	public List<Pedido> getPedidos(){ // CRIADO PARA O PEDIDO CONHECER OS ITEMPEDIDO. IRA VARRRER OS ITEMPEDIDO E MANDAR PARA O PEDIDO SABER OS ITENS
+		List<Pedido> lista = new ArrayList<>();
+		for (ItemPedido x: itens) { // PERCORRENDO OS ITEMPEDIDO E ARMAZENANDO EM X
+			lista.add(x.getPedido());
+		}
+		return lista;
 	}
 
 	public Integer getId() {
@@ -73,6 +87,14 @@ public class Produto implements Serializable{
 	public void setCategorias(List<Categoria> categorias) {
 		this.categorias = categorias;
 	}
+	
+	public Set<ItemPedido> getItens() {
+		return itens;
+	}
+
+	public void setItens(Set<ItemPedido> itens) {
+		this.itens = itens;
+	}
 
 	@Override
 	public int hashCode() {
@@ -90,6 +112,8 @@ public class Produto implements Serializable{
 		Produto other = (Produto) obj;
 		return Objects.equals(id, other.id);
 	}
+
+	
 	
 	
 }
