@@ -18,6 +18,7 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 //import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Produto implements Serializable{
@@ -34,6 +35,7 @@ public class Produto implements Serializable{
 	@JoinTable(name = "PRODUTO_CATEGORIA", joinColumns = @JoinColumn(name = "produto_id"), inverseJoinColumns = @JoinColumn(name = "categoria_id")) // PARA MAPEAR E CRIAR AS TABELAS NO BANCO DE DADOS
 	private List<Categoria> categorias = new ArrayList<>();
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "id.produto") // PEGANDO O ID E FAZENDO REFERENCIA PARA O PRODUTO. AULA 29 02:00.
 	private Set<ItemPedido> itens = new HashSet<>(); // CRIADO PARA A CLASSE PRODUTO CONHEÇER A CLASSE ITEMPEDIDO
 	
@@ -48,6 +50,7 @@ public class Produto implements Serializable{
 		this.preco = preco;
 	}
 	
+	@JsonIgnore // PARA NAO SEREALIZAR ESSA LISTA DE PEDIDOS
 	public List<Pedido> getPedidos(){ // CRIADO PARA O PEDIDO CONHECER OS ITEMPEDIDO. IRA VARRRER OS ITEMPEDIDO E MANDAR PARA O PEDIDO SABER OS ITENS
 		List<Pedido> lista = new ArrayList<>();
 		for (ItemPedido x: itens) { // PERCORRENDO OS ITEMPEDIDO E ARMAZENANDO EM X

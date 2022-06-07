@@ -6,10 +6,13 @@ import java.util.Objects;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class ItemPedido implements Serializable{
 	private static final long serialVersionUID = 1L;
 
+	@JsonIgnore // PARA O PROGRAMA NEM OLHAR PARA ESSE CARA. ELE NÃO IRA SEREALIZAR NEM O PEDIDO NEM O PRODUTO
 	@EmbeddedId // DEVIDO SER UMA CLASSE AUXILIAR QUE PEGA DOIS IDS
 	private ItemPedidoPK id = new ItemPedidoPK(); // A CLASSE ITEMPEDIDOPK ESTA PEGANDO OS IDS DA CLASSE PRODUTO E PEDIDO // DEVE SER INSTANCIADA POIS E UMA CLASSE AUXILIAR // CHAVE COMPOSTA
 	
@@ -29,9 +32,11 @@ public class ItemPedido implements Serializable{
 		this.preco = preco;
 	}
 	
+	@JsonIgnore // AO COLOCAR ESSE CODIGO NÃO APARECERA O JSON NO POSTMAN.
 	public Pedido getPedido() { // CRIADO MANUALMENTE
 		return id.getPedido();
 	}
+	
 	
 	public Produto getProduto() { // CRIADO MANUALMENTE
 		return id.getProduto();
