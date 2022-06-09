@@ -1,4 +1,4 @@
-// ESSA E A CAMADA DE SERVIÇOS
+// ESSA E A CAMADA DE SERVIÇOS // TRABALHA EM CONJUNTO COM A CLASSE CATEGORIARESOURCE
 
 package com.nelioalves.cursomc.services;
 
@@ -17,13 +17,21 @@ public class CategoriaService {
 	@Autowired
 	private CategoriaRepository repo; // ESSE FAZ A LIGAÇÃO COM A CLASSE CATEGORIAREPOSITORY
 	
-	public Categoria buscar(Integer id) { // ESSE COMANDO SERVE PARA BUSCAR NO CATEGORIAREPOSITORY
+	// PARA PEGAR DADOS
+	public Categoria find(Integer id) { // ESSE COMANDO SERVE PARA BUSCAR NO CATEGORIAREPOSITORY
 		Optional<Categoria> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
 	}
 	
+	// PARA INSERIR DADOS 
 	public Categoria insert(Categoria obj) {
 		obj.setId(null); // PARA GARANTIR QUE O OBJETO A SER INSERIDO SERA NULL
+		return repo.save(obj);
+	}
+	
+	// PARA ATUALIZAR DADOS
+	public Categoria update (Categoria obj) {
+		find(obj.getId());
 		return repo.save(obj);
 	}
 }

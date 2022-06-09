@@ -17,7 +17,7 @@ public class ClienteService {
 	@Autowired
 	private ClienteRepository repo; // ESSE FAZ A LIGAÇÃO COM A CLASSE CATEGORIAREPOSITORY
 	
-	public Cliente buscar(Integer id) { // ESSE COMANDO SERVE PARA BUSCAR NO CATEGORIAREPOSITORY
+	public Cliente find(Integer id) { // ESSE COMANDO SERVE PARA BUSCAR NO CATEGORIAREPOSITORY
 		Optional<Cliente> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
 	}
