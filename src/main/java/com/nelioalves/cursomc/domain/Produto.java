@@ -16,7 +16,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 //import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -30,7 +29,7 @@ public class Produto implements Serializable{
 	private String nome;
 	private double preco;
 	
-	@JsonBackReference // FOI COLOCADO POIS DO OUTRO LADO DA ASSOCIAÇÃO JA FOI COLOCADO O @JsonManagedReference
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "PRODUTO_CATEGORIA", joinColumns = @JoinColumn(name = "produto_id"), inverseJoinColumns = @JoinColumn(name = "categoria_id")) // PARA MAPEAR E CRIAR AS TABELAS NO BANCO DE DADOS
 	private List<Categoria> categorias = new ArrayList<>();

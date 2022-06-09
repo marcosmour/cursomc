@@ -15,8 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nelioalves.cursomc.domain.enums.TipoCliente;
 
 @Entity
@@ -31,7 +30,7 @@ public class Cliente implements Serializable{
 	private String cpfOuCnpj;
 	private Integer tipo; // PRIMEIRO FOI CRIADO COM TIPOCLIENTE, DEPOIS FOI MUDADO PARA INTEGER. FOI PRECISO ALTERAR O CONSTRUTOR COM FIELDS E OS GET E SET
 	
-	@JsonManagedReference //PROTEGENDO CONTRA SEREALIZAÇÃO JSON CICLICA
+	
 	@OneToMany(mappedBy = "cliente")
 	private List<Endereco> enderecos = new ArrayList<>(); // NESSE CASO UM CLIENTE TEM VARIOS ENDEREÇOS 
 	
@@ -39,7 +38,7 @@ public class Cliente implements Serializable{
 	@CollectionTable(name="TELEFONE") // NOME DA TABELA NO BANCO DE DADOS
 	private Set<String> telefones = new HashSet<>(); // SET E UM CONJUNTO. ENTÃO NÃO ACEITA REPETIÇÃO (ESSE SERIA UMA CLASSE MAS FOI COLOCADA AQUI PARA NÃO PRECISO CRIAR UMA CLASSE)
 	
-	@JsonBackReference // NA CLASSE PEDIDO ESTA O @JsonManagedReference
+	@JsonIgnore
 	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos =  new ArrayList<>();
 	

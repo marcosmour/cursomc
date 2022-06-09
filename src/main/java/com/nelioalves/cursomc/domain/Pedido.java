@@ -17,7 +17,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 
@@ -32,11 +31,11 @@ public class Pedido implements Serializable{
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm") // PARA FORMATAR OS DADOS DE DATA E HORA
 	private Date instante;
 	
-	@JsonManagedReference // EVITAR SEREALIZAÇÃO CITRICA - NO PAGAMENTO ESTA O BACKREFERENCE
+	
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido") // NESCESSARIO PARA NÃO DAR ERRO TRANSIENTE
 	private Pagamento pagamento; // ASSOCIAÇÃO DE UM PARA UM
 	
-	@JsonManagedReference // PARA EVITAR SEREALIZÃO CITRICA
+	
 	@ManyToOne
 	@JoinColumn(name="cliente_id")
 	private Cliente cliente;
