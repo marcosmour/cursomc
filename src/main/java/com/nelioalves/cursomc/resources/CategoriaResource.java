@@ -6,6 +6,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 //import java.util.ArrayList;
 //import java.util.List;
 
@@ -39,7 +41,8 @@ public class CategoriaResource {
 	
 // PARA RECEBER UMA RESIÇÃO JSON E GERAR UMA CATEGORIA NO BANCO DE DADOS
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert(@RequestBody Categoria obj){ // O OBJ E O DADO QUE SERA INSERIDO NO BANCO DE DADOS
+	public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO objDto){ 
+		Categoria obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(obj.getId()).toUri(); // PEGA A URI DO NOVO RECURSO INSERIDO GERAR URI E DAR UMA NUMERAÇÃO DO ID, GERADO AUTOMATICO NO BD
@@ -47,7 +50,8 @@ public class CategoriaResource {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(@RequestBody Categoria obj, @PathVariable Integer id){
+	public ResponseEntity<Void> update(@Valid @RequestBody CategoriaDTO objDto, @PathVariable Integer id){
+		Categoria obj = service.fromDTO(objDto);
 		obj.setId(id);
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
@@ -66,6 +70,7 @@ public class CategoriaResource {
 		List<CategoriaDTO> listDto = list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDto);
 	}
+	
 	// PARA FASER UMA BUSCA COM PAGINAÇÃO AULA 38.
 	@RequestMapping(value = "/page", method=RequestMethod.GET)
 	public ResponseEntity<Page<CategoriaDTO>> findPage(
